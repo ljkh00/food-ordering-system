@@ -3,6 +3,9 @@ const express = require('express');
 const cors = require('cors'); 
 require('dotenv').config(); 
 
+const menuRoutes = require('./routes/menu'); 
+const orderRoutes = require('./routes/orders'); 
+
 const app = express(); 
 const PORT = process.env.PORT || 3000; 
  
@@ -14,11 +17,15 @@ app.use(express.json());
 // Routes 
 
 app.get('/', (req, res) => { 
-    res.json({ message: 'Food Ordering API is running!' }); 
-}) 
-
+    res.json({  
+        message: 'Food Ordering API is running!', 
+        endpoints: [ 
+            'GET /api/menu - Get menu items', 
+            'POST /api/orders - Create order' 
+        ] 
+    }); 
+}); 
   
-
 app.listen(PORT, () => { 
     console.log(`Server running on port ${PORT}`);
 });
