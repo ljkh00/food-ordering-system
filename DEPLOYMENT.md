@@ -1,6 +1,7 @@
 # Deployment Checklist
 
 ## Pre-deployment
+
 - [ ] All tests passing
 - [ ] Code reviewed by team
 - [ ] Documentation updated
@@ -8,6 +9,7 @@
 - [ ] Environment variables configured
 
 ## Deployment Steps
+
 1. Create production database
 2. Run database migrations
 3. Deploy backend API
@@ -16,6 +18,7 @@
 6. Test production environment
 
 ## Post-deployment
+
 - [ ] Monitor application logs
 - [ ] Verify all features work
 - [ ] Check performance metrics

@@ -8,5 +8,5 @@ const tests = [
 
 console.log('Running integration tests...');
 tests.forEach((test, index) => {
-    console.log(\`\${index + 1}. \${test}\`);
+    console.log(`${index + 1}. ${test}`);
 });

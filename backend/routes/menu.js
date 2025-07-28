@@ -9,19 +9,33 @@ const menuItems = [
     { id: 3, name: "Roti Canai", price: 3.50, category: "Indian", available: true } 
 ]; 
 
-// GET /api/menu - Get all menu items 
-router.get('/', (req, res) => { 
-    res.json({ success: true, data: menuItems }); 
+// GET /api/menu - Get all menu items from database 
+
+router.get('/', async (req, res) => { 
+    try { 
+        const result = await pool.query('SELECT * FROM menu_items WHERE available = true'); 
+        res.json({ success: true, data: result.rows }); 
+    } catch (error) { 
+        console.error('Database error:', error); 
+        res.status(500).json({ success: false, message: 'Database error' }); 
+    } 
 }); 
+ 
 
 // GET /api/menu/:id - Get specific menu item 
-
-router.get('/:id', (req, res) => { 
-    const item = menuItems.find(item => item.id === parseInt(req.params.id)); 
-    if (!item) { 
-        return res.status(404).json({ success: false, message: 'Menu item not found' }); 
+router.get('/:id', async (req, res) => { 
+    try { 
+        const result = await pool.query('SELECT * FROM menu_items WHERE id = $1', [req.params.id]); 
+         
+        if (result.rows.length === 0) { 
+            return res.status(404).json({ success: false, message: 'Menu item not found' }); 
+        } 
+         
+        res.json({ success: true, data: result.rows[0] }); 
+    } catch (error) { 
+        console.error('Database error:', error); 
+        res.status(500).json({ success: false, message: 'Database error' }); 
     } 
-    res.json({ success: true, data: item }); 
 }); 
 
 module.exports = router; 
