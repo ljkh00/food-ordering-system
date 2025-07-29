@@ -1,0 +1,51 @@
+name: Deploy Food Ordering System
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '16'
+        
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm install
+        
+    - name: Run backend tests
+      run: |
+        cd backend
+        npm test
+        
+    - name: Test frontend
+      run: |
+        cd frontend
+        # Add frontend tests here
+        echo "Frontend tests would run here"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to production
+      run: |
+        echo "Deployment would happen here"
+        echo "- Build Docker containers"  
+        echo "- Push to container registry"
+        echo "- Deploy to cloud platform"
+        echo "- Run health checks"
