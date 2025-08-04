@@ -9,7 +9,7 @@ services:
       - DB_HOST=db
       - DB_NAME=food_ordering
       - DB_USER=postgres
-      - DB_PASSWORD=password
+      - DB_PASSWORD=devpassword123
     depends_on:
       - db
     volumes:
